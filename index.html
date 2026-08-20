@@ -1,0 +1,2084 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <meta name="description" content="جمشید احمدزی | Jamshid Ahmadzai - یادگیری کامپیوتر، تکنولوژی، سخت‌افزار، نرم‌افزار و هوش مصنوعی" />
+  <meta name="author" content="Jamshid Ahmadzai" />
+  <title>جمشید احمدزی | Jamshid Ahmadzai</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Apple-inspired Light */
+      --bg-primary: #f5f5f7;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --bg-sidebar: #1d1d1f;
+      --text-primary: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --text-muted: #86868b;
+      --text-on-dark: #f5f5f7;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --accent-soft: rgba(0, 113, 227, 0.08);
+      --border: rgba(0, 0, 0, 0.08);
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.1);
+      --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.12);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --radius-full: 980px;
+      --transition: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      --transition-spring: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      --sidebar-width: 290px;
+      --header-height: 60px;
+      --blur: blur(20px);
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #000000;
+      --bg-secondary: #1c1c1e;
+      --bg-card: #1c1c1e;
+      --bg-sidebar: #000000;
+      --text-primary: #f5f5f7;
+      --text-secondary: #a1a1a6;
+      --text-muted: #6e6e73;
+      --text-on-dark: #f5f5f7;
+      --accent: #2997ff;
+      --accent-hover: #0077ed;
+      --accent-soft: rgba(41, 151, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.1);
+      --shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      transition: background-color 0.5s ease, color 0.5s ease;
+      overflow-x: hidden;
+    }
+
+    body[dir="ltr"] {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Vazirmatn', system-ui, sans-serif;
+    }
+
+    /* ========== Layout ========== */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar - Desktop (Apple dark elegant) */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      color: var(--text-on-dark);
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform var(--transition);
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    body[dir="ltr"] .sidebar {
+      right: auto;
+      left: 0;
+      border-left: none;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sidebar-header {
+      padding: 2.5rem 1.75rem 1.75rem;
+      text-align: center;
+    }
+
+    .profile-img-wrapper {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.25rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.2);
+      background: linear-gradient(145deg, #2c2c2e, #1c1c1e);
+      transition: transform var(--transition-spring), box-shadow var(--transition);
+    }
+
+    .profile-img-wrapper:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 5px rgba(0, 113, 227, 0.35);
+    }
+
+    .profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-img-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #0071e3, #2997ff);
+      color: white;
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .sidebar-name-fa {
+      font-size: 1.2rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.15rem;
+    }
+
+    .sidebar-name-en {
+      font-size: 0.85rem;
+      opacity: 0.7;
+      margin-bottom: 0.6rem;
+      font-weight: 400;
+    }
+
+    .sidebar-title {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 0.75rem 0.85rem;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.8rem 1.1rem;
+      color: rgba(245, 245, 247, 0.7);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border-radius: 12px;
+      margin-bottom: 0.2rem;
+      cursor: pointer;
+    }
+
+    .nav-item:hover {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+    }
+
+    .nav-item.active {
+      background: rgba(0, 113, 227, 0.2);
+      color: #fff;
+    }
+
+    .nav-item i {
+      width: 22px;
+      text-align: center;
+      font-size: 1.05rem;
+      opacity: 0.9;
+    }
+
+    .sidebar-social {
+      padding: 1.25rem 1.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(245,245,247,0.65);
+      background: rgba(255,255,255,0.06);
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .social-link:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-3px) scale(1.08);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-right: var(--sidebar-width);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: margin var(--transition);
+    }
+
+    body[dir="ltr"] .main-content {
+      margin-right: 0;
+      margin-left: var(--sidebar-width);
+    }
+
+    /* Mobile Header */
+    .mobile-header {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      height: var(--header-height);
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.1rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    [data-theme="dark"] .mobile-header {
+      background: rgba(28,28,30,0.75);
+    }
+
+    .mobile-brand {
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    .hamburger {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: transparent;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      color: var(--text-primary);
+      transition: background 0.3s ease;
+    }
+
+    .hamburger:hover {
+      background: var(--accent-soft);
+    }
+
+    /* Top Bar */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 2rem;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    [data-theme="dark"] .top-bar {
+      background: rgba(28,28,30,0.75);
+    }
+
+    .search-box {
+      flex: 1;
+      max-width: 380px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.7rem 1.1rem 0.7rem 2.7rem;
+      border: none;
+      border-radius: var(--radius-full);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    body[dir="rtl"] .search-box input {
+      padding: 0.7rem 2.7rem 0.7rem 1.1rem;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      box-shadow: inset 0 0 0 1.5px var(--accent), 0 0 0 4px var(--accent-soft);
+    }
+
+    .search-box i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.9rem;
+    }
+
+    body[dir="rtl"] .search-box i { right: 1.1rem; }
+    body[dir="ltr"] .search-box i { left: 1.1rem; }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .ctrl-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.95rem;
+      border: none;
+      border-radius: var(--radius-full);
+      background: var(--bg-primary);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    .ctrl-btn:hover {
+      color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+      background: var(--accent-soft);
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    /* Views */
+    .views-container {
+      flex: 1;
+      padding: 2.25rem 2rem;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .view {
+      display: none;
+      animation: appleFadeIn 0.55s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    @keyframes appleFadeIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ========== Hero (Apple style) ========== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 3rem;
+      align-items: center;
+      background: var(--bg-card);
+      border-radius: 28px;
+      padding: 3rem 2.75rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 60%;
+      height: 140%;
+      background: radial-gradient(circle, var(--accent-soft) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    .hero-content .hero-en {
+      font-size: 1.15rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-content p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.65rem;
+      border-radius: var(--radius-full);
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      border: none;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(0, 113, 227, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: scale(1.04);
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--accent);
+      box-shadow: inset 0 0 0 1.5px var(--accent);
+    }
+
+    .btn-outline:hover {
+      background: var(--accent-soft);
+      transform: scale(1.04);
+    }
+
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-profile {
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(0, 113, 227, 0.25);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+      background: linear-gradient(145deg, #0071e3, #2997ff);
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .hero-profile:hover {
+      transform: scale(1.06);
+    }
+
+    .hero-profile img,
+    .hero-profile .profile-img-fallback {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Section Titles */
+    .section-header {
+      margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-header .en-title {
+      color: var(--accent);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .section-header p {
+      color: var(--text-secondary);
+      margin-top: 0.6rem;
+      max-width: 560px;
+      font-size: 1.05rem;
+    }
+
+    /* Cards */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.35rem;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      box-shadow: var(--shadow);
+      transition: all 0.45s cubic-bezier(0.25, 0.1, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1.15rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.12);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.55rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      flex: 1;
+      line-height: 1.65;
+    }
+
+    /* Article Cards */
+    .article-card {
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .article-img {
+      height: 150px;
+      background: linear-gradient(145deg, #0071e3, #2997ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.4rem;
+      transition: transform 0.5s ease;
+    }
+
+    .article-card:hover .article-img {
+      transform: scale(1.04);
+    }
+
+    .article-img.cpu { background: linear-gradient(145deg, #5e5ce6, #bf5af2); }
+    .article-img.ram { background: linear-gradient(145deg, #30d158, #34c759); }
+    .article-img.ssd { background: linear-gradient(145deg, #ff9f0a, #ffd60a); }
+    .article-img.ai { background: linear-gradient(145deg, #ff375f, #ff6482); }
+    .article-img.pc { background: linear-gradient(145deg, #64d2ff, #5ac8fa); }
+
+    .article-body {
+      padding: 1.35rem 1.5rem 1.5rem;
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 0.7rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.55rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .article-body h3 {
+      font-size: 1.08rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .article-body p {
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.5fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .about-img-box {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .about-img-box::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .about-img-box .profile-img-wrapper {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 1.35rem;
+    }
+
+    .about-text {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .about-text::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .about-text p {
+      color: var(--text-secondary);
+      margin-bottom: 1.15rem;
+      font-size: 1.02rem;
+      line-height: 1.75;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Categories */
+    .category-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .category-item {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 1.35rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .category-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .category-item:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .category-item i {
+      font-size: 1.4rem;
+      color: var(--accent);
+      width: 36px;
+      text-align: center;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .category-item:hover i {
+      transform: scale(1.15);
+    }
+
+    .category-item span {
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: -0.01em;
+    }
+
+    /* Projects */
+    .project-card {
+      position: relative;
+    }
+
+    .project-card .placeholder-badge {
+      position: absolute;
+      top: 1.1rem;
+      left: 1.1rem;
+      background: var(--accent);
+      color: white;
+      font-size: 0.68rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      z-index: 2;
+    }
+
+    body[dir="rtl"] .project-card .placeholder-badge {
+      left: auto;
+      right: 1.1rem;
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.1rem;
+    }
+
+    .contact-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.25rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+    }
+
+    .contact-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .contact-card i {
+      font-size: 1.85rem;
+      color: var(--accent);
+      margin-bottom: 0.85rem;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .contact-card:hover i {
+      transform: scale(1.15);
+    }
+
+    .contact-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Phone highlight */
+    .phone-card {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding: 1.5rem 2rem;
+      background: linear-gradient(135deg, var(--accent), #2997ff);
+      color: #fff;
+      border-radius: var(--radius);
+      text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0, 113, 227, 0.3);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      margin-bottom: 0.5rem;
+    }
+
+    .phone-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 113, 227, 0.4);
+    }
+
+    .phone-card i {
+      font-size: 1.8rem;
+    }
+
+    .phone-card .phone-info h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.15rem;
+    }
+
+    .phone-card .phone-info p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    /* Settings */
+    .settings-panel {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-top: 2.25rem;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .settings-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px var(--border);
+      pointer-events: none;
+    }
+
+    .settings-panel h3 {
+      margin-bottom: 1.15rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .setting-row:last-child {
+      border-bottom: none;
+    }
+
+    .font-size-btns {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .font-size-btns button {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 0 1px var(--border);
+    }
+
+    .font-size-btns button:hover,
+    .font-size-btns button.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.75rem;
+      left: 1.75rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 6px 20px rgba(0, 113, 227, 0.35);
+      z-index: 800;
+      transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    body[dir="ltr"] .back-to-top {
+      left: auto;
+      right: 1.75rem;
+    }
+
+    .back-to-top.visible {
+      display: flex;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-4px) scale(1.08);
+      box-shadow: 0 10px 28px rgba(0, 113, 227, 0.45);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      z-index: 1100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s ease;
+    }
+
+    .mobile-menu-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(310px, 88vw);
+      height: 100%;
+      background: var(--bg-sidebar);
+      color: var(--text-on-dark);
+      z-index: 1200;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    body[dir="ltr"] .mobile-menu {
+      right: auto;
+      left: 0;
+      transform: translateX(-100%);
+    }
+
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+
+    .mobile-menu-header {
+      padding: 1.5rem 1.35rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .mobile-menu-close {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.25s ease;
+    }
+
+    .mobile-menu-close:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .mobile-nav {
+      padding: 0.85rem;
+      flex: 1;
+    }
+
+    .mobile-nav .nav-item {
+      padding: 0.95rem 1.15rem;
+    }
+
+    .mobile-social {
+      padding: 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .search-info {
+      display: none;
+      padding: 0.85rem 1.15rem;
+      background: var(--accent-soft);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.35rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .search-info.visible {
+      display: block;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    .no-results.visible {
+      display: block;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 1.75rem;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 2.5rem 2rem;
+      }
+      .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero::before {
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+      .main-content {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+      }
+      .mobile-header {
+        display: flex;
+      }
+      .top-bar {
+        padding: 0.75rem 1rem;
+        top: var(--header-height);
+      }
+      .search-box {
+        max-width: none;
+      }
+      .views-container {
+        padding: 1.5rem 1.1rem;
+      }
+      .hero {
+        padding: 2rem 1.35rem;
+        border-radius: 22px;
+      }
+      .hero-profile {
+        width: 170px;
+        height: 170px;
+      }
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      .ctrl-btn span {
+        display: none;
+      }
+      .back-to-top {
+        bottom: 1.25rem;
+        left: 1.25rem;
+      }
+      body[dir="ltr"] .back-to-top {
+        right: 1.25rem;
+        left: auto;
+      }
+      .phone-card {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 1.5rem;
+      }
+      .top-controls {
+        gap: 0.3rem;
+      }
+      .ctrl-btn {
+        padding: 0.45rem 0.7rem;
+      }
+    }
+
+    body.font-sm { font-size: 14px; }
+    body.font-md { font-size: 16px; }
+    body.font-lg { font-size: 18px; }
+
+    [data-lang="fa"] .lang-en { display: none !important; }
+    [data-lang="en"] .lang-fa { display: none !important; }
+  </style>
+</head>
+<body data-theme="light" data-lang="fa" dir="rtl" class="font-md">
+
+  <!-- Mobile Header -->
+  <header class="mobile-header">
+    <div class="mobile-brand">
+      <span class="lang-fa">جمشید احمدزی</span>
+      <span class="lang-en">Jamshid Ahmadzai</span>
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu-overlay" id="mobileOverlay"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <div>
+        <strong class="lang-fa">منو</strong>
+        <strong class="lang-en">Menu</strong>
+      </div>
+      <button class="mobile-menu-close" id="mobileClose" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-nav">
+      <a class="nav-item active" data-view="home"><i class="fas fa-home"></i> <span class="lang-fa">خانه</span><span class="lang-en">Home</span></a>
+      <a class="nav-item" data-view="about"><i class="fas fa-user"></i> <span class="lang-fa">درباره من</span><span class="lang-en">About Me</span></a>
+      <a class="nav-item" data-view="computer"><i class="fas fa-desktop"></i> <span class="lang-fa">کامپیوتر</span><span class="lang-en">Computer</span></a>
+      <a class="nav-item" data-view="ai"><i class="fas fa-robot"></i> <span class="lang-fa">هوش مصنوعی</span><span class="lang-en">Artificial Intelligence</span></a>
+      <a class="nav-item" data-view="tutorials"><i class="fas fa-book-open"></i> <span class="lang-fa">آموزش‌ها</span><span class="lang-en">Tutorials</span></a>
+      <a class="nav-item" data-view="articles"><i class="fas fa-newspaper"></i> <span class="lang-fa">مقالات</span><span class="lang-en">Articles</span></a>
+      <a class="nav-item" data-view="projects"><i class="fas fa-rocket"></i> <span class="lang-fa">پروژه‌ها</span><span class="lang-en">Projects</span></a>
+      <a class="nav-item" data-view="contact"><i class="fas fa-envelope"></i> <span class="lang-fa">تماس</span><span class="lang-en">Contact</span></a>
+    </div>
+    <div class="mobile-social">
+      <a href="https://www.youtube.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.facebook.com/profile.php?id=100064603517065&mibextid=ZbWKwL" target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://www.instagram.com/engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.tiktok.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+      <a href="https://chat.whatsapp.com/HUeikxTryvtITAGNzcDOKO" target="_blank" rel="noopener" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://t.me/engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+    </div>
+  </nav>
+
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="profile-img-wrapper">
+          <img src="profile.jpg" alt="Jamshid Ahmadzai" class="profile-img" id="profileImg"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+          <div class="profile-img-fallback" style="display:none;">جا</div>
+        </div>
+        <div class="sidebar-name-fa lang-fa">جمشید احمدزی</div>
+        <div class="sidebar-name-en">Jamshid Ahmadzai</div>
+        <div class="sidebar-title">Computer & Technology</div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a class="nav-item active" data-view="home"><i class="fas fa-home"></i> <span class="lang-fa">خانه</span><span class="lang-en">Home</span></a>
+        <a class="nav-item" data-view="about"><i class="fas fa-user"></i> <span class="lang-fa">درباره من</span><span class="lang-en">About Me</span></a>
+        <a class="nav-item" data-view="computer"><i class="fas fa-desktop"></i> <span class="lang-fa">کامپیوتر</span><span class="lang-en">Computer</span></a>
+        <a class="nav-item" data-view="ai"><i class="fas fa-robot"></i> <span class="lang-fa">هوش مصنوعی</span><span class="lang-en">AI</span></a>
+        <a class="nav-item" data-view="tutorials"><i class="fas fa-book-open"></i> <span class="lang-fa">آموزش‌ها</span><span class="lang-en">Tutorials</span></a>
+        <a class="nav-item" data-view="articles"><i class="fas fa-newspaper"></i> <span class="lang-fa">مقالات</span><span class="lang-en">Articles</span></a>
+        <a class="nav-item" data-view="projects"><i class="fas fa-rocket"></i> <span class="lang-fa">پروژه‌ها</span><span class="lang-en">Projects</span></a>
+        <a class="nav-item" data-view="contact"><i class="fas fa-envelope"></i> <span class="lang-fa">تماس</span><span class="lang-en">Contact</span></a>
+      </nav>
+
+      <div class="sidebar-social">
+        <a href="https://www.youtube.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.facebook.com/profile.php?id=100064603517065&mibextid=ZbWKwL" target="_blank" rel="noopener" class="social-link" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://chat.whatsapp.com/HUeikxTryvtITAGNzcDOKO" target="_blank" rel="noopener" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/engjamshidahmadzai" target="_blank" rel="noopener" class="social-link" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="top-bar">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="search" id="searchInput" placeholder="جستجو در مقالات و آموزش‌ها..." data-placeholder-fa="جستجو در مقالات و آموزش‌ها..." data-placeholder-en="Search articles & tutorials..." />
+        </div>
+        <div class="top-controls">
+          <button class="ctrl-btn" id="themeToggle" title="Dark / Light">
+            <i class="fas fa-moon"></i>
+            <span class="lang-fa">حالت تاریک</span>
+            <span class="lang-en">Dark</span>
+          </button>
+          <button class="ctrl-btn lang-btn" id="langFa" data-lang="fa">FA</button>
+          <button class="ctrl-btn lang-btn" id="langEn" data-lang="en">EN</button>
+        </div>
+      </div>
+
+      <div class="views-container">
+        <div class="search-info" id="searchInfo"></div>
+        <div class="no-results" id="noResults">
+          <i class="fas fa-search" style="font-size:2rem;margin-bottom:0.75rem;opacity:0.5;"></i>
+          <p class="lang-fa">نتیجه‌ای یافت نشد.</p>
+          <p class="lang-en">No results found.</p>
+        </div>
+
+        <!-- HOME -->
+        <section class="view active" id="view-home" data-view-name="home">
+          <div class="hero">
+            <div class="hero-content">
+              <h1 class="lang-fa">یادگیری کامپیوتر، ساده‌تر از چیزی است که فکر می‌کنی</h1>
+              <h1 class="lang-en">Learn Computer & Technology, Simply.</h1>
+              <p class="hero-en lang-en">Computer • Hardware • Software • AI</p>
+              <p class="lang-fa">به وب‌سایت شخصی جمشید احمدزی خوش آمدید؛ جایی برای یادگیری ساده و کاربردی کامپیوتر، تکنولوژی، سخت‌افزار، نرم‌افزار و هوش مصنوعی. اینجا مفاهیم پیچیده را به زبان ساده و قابل فهم می‌آموزید.</p>
+              <p class="lang-en">Welcome to Jamshid Ahmadzai's personal website — a place for simple and practical learning about computers, technology, hardware, software, and artificial intelligence. Here complex concepts become clear and easy to understand.</p>
+              <div class="hero-actions">
+                <button class="btn btn-primary" data-view="tutorials">
+                  <i class="fas fa-play"></i>
+                  <span class="lang-fa">شروع یادگیری</span>
+                  <span class="lang-en">Start Learning</span>
+                </button>
+                <button class="btn btn-outline" data-view="about">
+                  <i class="fas fa-user"></i>
+                  <span class="lang-fa">درباره من</span>
+                  <span class="lang-en">About Me</span>
+                </button>
+              </div>
+            </div>
+            <div class="hero-visual">
+              <div class="hero-profile">
+                <img src="profile.jpg" alt="Jamshid Ahmadzai" class="profile-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="profile-img-fallback" style="display:none; font-size:3.5rem;">جا</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-header">
+            <h2 class="lang-fa">دسترسی سریع</h2>
+            <h2 class="lang-en">Quick Access</h2>
+          </div>
+          <div class="cards-grid">
+            <div class="card" data-view="computer" style="cursor:pointer;">
+              <div class="card-icon"><i class="fas fa-microchip"></i></div>
+              <h3 class="lang-fa">کامپیوتر</h3>
+              <h3 class="lang-en">Computer</h3>
+              <p class="lang-fa">آشنایی با سخت‌افزار، نرم‌افزار و مفاهیم پایه‌ای که هر کاربر باید بداند. از پردازنده تا سیستم‌عامل.</p>
+              <p class="lang-en">Learn hardware, software and the core concepts every user should know — from processor to operating system.</p>
+            </div>
+            <div class="card" data-view="ai" style="cursor:pointer;">
+              <div class="card-icon"><i class="fas fa-brain"></i></div>
+              <h3 class="lang-fa">هوش مصنوعی</h3>
+              <h3 class="lang-en">Artificial Intelligence</h3>
+              <p class="lang-fa">درک ساده AI، یادگیری ماشین و ابزارهای مدرن که دنیای تکنولوژی را متحول کرده‌اند.</p>
+              <p class="lang-en">A simple understanding of AI, machine learning and the modern tools reshaping technology.</p>
+            </div>
+            <div class="card" data-view="tutorials" style="cursor:pointer;">
+              <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+              <h3 class="lang-fa">آموزش‌ها</h3>
+              <h3 class="lang-en">Tutorials</h3>
+              <p class="lang-fa">دسته‌بندی‌های آموزشی متنوع برای یادگیری گام‌به‌گام و کاربردی در حوزه‌های مختلف تکنولوژی.</p>
+              <p class="lang-en">Various educational categories for step-by-step practical learning across technology topics.</p>
+            </div>
+            <div class="card" data-view="articles" style="cursor:pointer;">
+              <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+              <h3 class="lang-fa">مقالات</h3>
+              <h3 class="lang-en">Articles</h3>
+              <p class="lang-fa">مطالب کاربردی و آموزشی با زبان ساده تا مفاهیم فنی را راحت‌تر درک کنید.</p>
+              <p class="lang-en">Practical educational articles written in simple language so technical concepts become easy.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="view" id="view-about" data-view-name="about">
+          <div class="section-header">
+            <h2 class="lang-fa">درباره من</h2>
+            <div class="en-title lang-en">About Me</div>
+          </div>
+          <div class="about-grid">
+            <div class="about-img-box">
+              <div class="profile-img-wrapper">
+                <img src="profile.jpg" alt="Jamshid Ahmadzai" class="profile-img"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <div class="profile-img-fallback" style="display:none; font-size:3rem;">جا</div>
+              </div>
+              <h3 class="lang-fa">جمشید احمدزی</h3>
+              <h3 class="lang-en">Jamshid Ahmadzai</h3>
+              <p style="color:var(--accent);font-size:0.9rem;margin-top:0.4rem;font-weight:500;">Computer & Technology</p>
+            </div>
+            <div class="about-text">
+              <p class="lang-fa">من جمشید احمدزی هستم و به کامپیوتر، تکنولوژی، آموزش و یادگیری علاقه دارم. این وب‌سایت را ایجاد کرده‌ام تا مطالب آموزشی و کاربردی درباره کامپیوتر، سخت‌افزار، نرم‌افزار، هوش مصنوعی و فناوری را به زبان ساده با دیگران به اشتراک بگذارم.</p>
+              <p class="lang-en">I am Jamshid Ahmadzai, and I am passionate about computers, technology, education, and learning. I created this website to share practical and educational content about computers, hardware, software, artificial intelligence, and technology in simple language.</p>
+              
+              <p class="lang-fa">هدف من این است که مفاهیم فنی و پیچیده را تا حد امکان ساده و قابل فهم ارائه کنم و این وب‌سایت را به یک مرجع شخصی برای یادگیری و دسترسی به مطالب مفید تبدیل کنم. هر موضوعی که اینجا می‌بینید با تمرکز بر کاربردی بودن نوشته شده است.</p>
+              <p class="lang-en">My goal is to present technical and complex concepts as simply and understandably as possible, and to turn this website into a personal reference for learning and accessing useful content. Every topic you find here is written with a focus on practicality.</p>
+              
+              <p class="lang-fa" style="opacity:0.7;font-style:italic;">[اطلاعات بیشتر درباره من]</p>
+              <p class="lang-en" style="opacity:0.7;font-style:italic;">[More information about me]</p>
+            </div>
+          </div>
+
+          <div class="settings-panel">
+            <h3 class="lang-fa">تنظیمات</h3>
+            <h3 class="lang-en">Settings</h3>
+            <div class="setting-row">
+              <span class="lang-fa">حالت نمایش</span>
+              <span class="lang-en">Theme</span>
+              <button class="ctrl-btn" id="themeToggle2">
+                <i class="fas fa-moon"></i>
+                <span class="lang-fa">تاریک / روشن</span>
+                <span class="lang-en">Dark / Light</span>
+              </button>
+            </div>
+            <div class="setting-row">
+              <span class="lang-fa">زبان</span>
+              <span class="lang-en">Language</span>
+              <div style="display:flex;gap:0.4rem;">
+                <button class="ctrl-btn lang-btn" data-lang="fa">FA</button>
+                <button class="ctrl-btn lang-btn" data-lang="en">EN</button>
+              </div>
+            </div>
+            <div class="setting-row">
+              <span class="lang-fa">اندازه متن</span>
+              <span class="lang-en">Font Size</span>
+              <div class="font-size-btns">
+                <button data-size="sm" title="Small">A-</button>
+                <button data-size="md" class="active" title="Medium">A</button>
+                <button data-size="lg" title="Large">A+</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- COMPUTER -->
+        <section class="view" id="view-computer" data-view-name="computer">
+          <div class="section-header">
+            <h2 class="lang-fa">کامپیوتر</h2>
+            <div class="en-title">Computer</div>
+            <p class="lang-fa">آشنایی با اجزای اصلی سخت‌افزار و نرم‌افزار کامپیوتر — هر کارت را بررسی کنید تا مفاهیم پایه را بهتر درک کنید.</p>
+            <p class="lang-en">Learn about the main hardware and software components of a computer — explore each card to better understand the fundamentals.</p>
+          </div>
+          <div class="cards-grid">
+            <div class="card searchable" data-keywords="ram حافظه موقت memory">
+              <div class="card-icon"><i class="fas fa-memory"></i></div>
+              <h3>RAM</h3>
+              <p class="lang-fa">حافظه موقت (Random Access Memory) فضایی است که سیستم برای اجرای برنامه‌ها و نگهداری داده‌های در حال استفاده از آن بهره می‌برد. هرچه RAM بیشتر باشد، سیستم روان‌تر کار می‌کند و می‌تواند برنامه‌های بیشتری را همزمان اجرا کند.</p>
+              <p class="lang-en">Random Access Memory is the temporary space the system uses to run programs and hold active data. More RAM means smoother performance and the ability to run more applications at the same time.</p>
+            </div>
+            <div class="card searchable" data-keywords="cpu پردازنده processor">
+              <div class="card-icon"><i class="fas fa-microchip"></i></div>
+              <h3>CPU</h3>
+              <p class="lang-fa">پردازنده مرکزی (Central Processing Unit) مغز کامپیوتر است. تمام دستورات را دریافت، پردازش و اجرا می‌کند. سرعت و تعداد هسته‌های CPU تأثیر مستقیمی روی عملکرد کلی سیستم دارد.</p>
+              <p class="lang-en">The Central Processing Unit is the brain of the computer. It receives, processes and executes all instructions. CPU speed and core count directly affect overall system performance.</p>
+            </div>
+            <div class="card searchable" data-keywords="gpu گرافیک graphics">
+              <div class="card-icon"><i class="fas fa-tv"></i></div>
+              <h3>GPU</h3>
+              <p class="lang-fa">پردازنده گرافیکی (Graphics Processing Unit) مسئول پردازش تصویر، ویدیو و محاسبات موازی است. در بازی‌ها، رندر سه‌بعدی، ویرایش ویدیو و حتی هوش مصنوعی نقش کلیدی دارد.</p>
+              <p class="lang-en">The Graphics Processing Unit handles image, video and parallel computing tasks. It plays a key role in gaming, 3D rendering, video editing and even artificial intelligence.</p>
+            </div>
+            <div class="card searchable" data-keywords="ssd hdd storage حافظه ذخیره">
+              <div class="card-icon"><i class="fas fa-hdd"></i></div>
+              <h3 class="lang-fa">SSD و HDD</h3>
+              <h3 class="lang-en">SSD & HDD</h3>
+              <p class="lang-fa">SSD (Solid State Drive) سرعت بسیار بالاتری نسبت به HDD دارد و بدون قطعه متحرک کار می‌کند. HDD ارزان‌تر است و ظرفیت بالاتری ارائه می‌دهد. انتخاب درست بستگی به نیاز و بودجه شما دارد.</p>
+              <p class="lang-en">SSD offers far higher speed than HDD and has no moving parts. HDD is cheaper and provides larger capacity. The right choice depends on your needs and budget.</p>
+            </div>
+            <div class="card searchable" data-keywords="motherboard مادربورد board">
+              <div class="card-icon"><i class="fas fa-server"></i></div>
+              <h3>Motherboard</h3>
+              <p class="lang-fa">مادربورد مرکز اتصال تمام قطعات سخت‌افزاری است. پردازنده، حافظه، کارت گرافیک و سایر قطعات از طریق مادربورد با هم ارتباط برقرار می‌کنند. انتخاب مادربورد مناسب برای ارتقا و سازگاری آینده مهم است.</p>
+              <p class="lang-en">The motherboard is the central hub connecting all hardware components. CPU, memory, graphics card and other parts communicate through it. Choosing the right board matters for future upgrades and compatibility.</p>
+            </div>
+            <div class="card searchable" data-keywords="windows ویندوز os سیستم">
+              <div class="card-icon"><i class="fab fa-windows"></i></div>
+              <h3>Windows</h3>
+              <p class="lang-fa">ویندوز یکی از پرکاربردترین سیستم‌عامل‌هاست. یادگیری نکات کاربردی، تنظیمات مهم و عیب‌یابی ساده می‌تواند تجربه استفاده شما را بسیار بهتر کند و مشکلات روزمره را کاهش دهد.</p>
+              <p class="lang-en">Windows is one of the most widely used operating systems. Learning practical tips, key settings and simple troubleshooting can greatly improve your experience and reduce everyday issues.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- AI -->
+        <section class="view" id="view-ai" data-view-name="ai">
+          <div class="section-header">
+            <h2 class="lang-fa">هوش مصنوعی</h2>
+            <div class="en-title">Artificial Intelligence</div>
+            <p class="lang-fa">آشنایی با مفاهیم پایه و ابزارهای مدرن هوش مصنوعی — از تعریف ساده تا کاربردهای واقعی.</p>
+            <p class="lang-en">Introduction to core concepts and modern AI tools — from simple definitions to real-world applications.</p>
+          </div>
+          <div class="cards-grid">
+            <div class="card searchable" data-keywords="هوش مصنوعی artificial intelligence ai چیست">
+              <div class="card-icon"><i class="fas fa-robot"></i></div>
+              <h3 class="lang-fa">هوش مصنوعی چیست؟</h3>
+              <h3 class="lang-en">What is AI?</h3>
+              <p class="lang-fa">هوش مصنوعی به سیستم‌هایی گفته می‌شود که می‌توانند کارهایی شبیه به هوش انسان انجام دهند؛ مثل یادگیری، تصمیم‌گیری و حل مسئله. امروز AI در گوشی، جستجو، پیشنهاد محتوا و بسیاری از ابزارهای روزمره حضور دارد.</p>
+              <p class="lang-en">Artificial Intelligence refers to systems that can perform tasks similar to human intelligence — learning, decision-making and problem-solving. Today AI is present in phones, search, content recommendations and many everyday tools.</p>
+            </div>
+            <div class="card searchable" data-keywords="machine learning یادگیری ماشین ml">
+              <div class="card-icon"><i class="fas fa-cogs"></i></div>
+              <h3 class="lang-fa">Machine Learning چیست؟</h3>
+              <h3 class="lang-en">What is Machine Learning?</h3>
+              <p class="lang-fa">یادگیری ماشین شاخه‌ای از AI است که در آن سیستم‌ها از داده یاد می‌گیرند و بدون برنامه‌نویسی صریح، الگوها را کشف می‌کنند. این فناوری پایه بسیاری از پیشنهادگرها، تشخیص تصویر و پیش‌بینی‌هاست.</p>
+              <p class="lang-en">Machine Learning is a branch of AI where systems learn from data and discover patterns without explicit programming. It powers recommenders, image recognition and many prediction systems.</p>
+            </div>
+            <div class="card searchable" data-keywords="generative ai تولید محتوا">
+              <div class="card-icon"><i class="fas fa-magic"></i></div>
+              <h3 class="lang-fa">Generative AI چیست؟</h3>
+              <h3 class="lang-en">What is Generative AI?</h3>
+              <p class="lang-fa">هوش مصنوعی مولد می‌تواند محتوای جدید بسازد؛ از متن و تصویر تا صدا و کد. مدل‌هایی مثل ChatGPT و ابزارهای تولید تصویر نمونه‌های معروف این فناوری هستند که خلاقیت را دگرگون کرده‌اند.</p>
+              <p class="lang-en">Generative AI can create new content — text, images, audio and code. Models like ChatGPT and image generators are well-known examples that have transformed creativity.</p>
+            </div>
+            <div class="card searchable" data-keywords="chatgpt چت جی پی تی">
+              <div class="card-icon"><i class="fas fa-comments"></i></div>
+              <h3 class="lang-fa">ChatGPT چیست؟</h3>
+              <h3 class="lang-en">What is ChatGPT?</h3>
+              <p class="lang-fa">ChatGPT یک مدل زبانی پیشرفته است که می‌تواند مکالمه کند، سؤال پاسخ دهد، متن بنویسد و در یادگیری و کار کمک کند. آشنایی با نحوه سؤال پرسیدن از آن، نتیجه را بسیار بهتر می‌کند.</p>
+              <p class="lang-en">ChatGPT is an advanced language model that can converse, answer questions, write text and assist with learning and work. Knowing how to ask good questions greatly improves the results.</p>
+            </div>
+            <div class="card searchable" data-keywords="prompt engineering پرامپت">
+              <div class="card-icon"><i class="fas fa-pen-fancy"></i></div>
+              <h3>Prompt Engineering</h3>
+              <p class="lang-fa">هنر نوشتن دستورات (پرامپت) مؤثر برای مدل‌های زبانی. با پرامپت خوب می‌توانید پاسخ‌های دقیق‌تر، خلاقانه‌تر و کاربردی‌تری از AI دریافت کنید. این مهارت امروزه بسیار ارزشمند است.</p>
+              <p class="lang-en">The art of writing effective instructions (prompts) for language models. Good prompts help you get more accurate, creative and useful responses from AI. This skill is highly valuable today.</p>
+            </div>
+            <div class="card searchable" data-keywords="ابزار tools ai">
+              <div class="card-icon"><i class="fas fa-tools"></i></div>
+              <h3 class="lang-fa">ابزارهای کاربردی AI</h3>
+              <h3 class="lang-en">Useful AI Tools</h3>
+              <p class="lang-fa">ابزارهای متنوعی برای تولید متن، تصویر، ویرایش، ترجمه، کدنویسی و مدیریت کار وجود دارند. شناخت ابزار مناسب برای هر نیاز، سرعت و کیفیت کار شما را بالا می‌برد.</p>
+              <p class="lang-en">There are many tools for text generation, images, editing, translation, coding and task management. Knowing the right tool for each need boosts your speed and quality of work.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- TUTORIALS -->
+        <section class="view" id="view-tutorials" data-view-name="tutorials">
+          <div class="section-header">
+            <h2 class="lang-fa">آموزش‌ها</h2>
+            <div class="en-title">Tutorials</div>
+            <p class="lang-fa">دسته‌بندی‌های آموزشی — به زودی محتوای بیشتری به هر دسته اضافه می‌شود. روی هر دسته کلیک کنید تا مسیر یادگیری را شروع کنید.</p>
+            <p class="lang-en">Educational categories — more content will be added soon. Click any category to begin your learning path.</p>
+          </div>
+          <div class="category-list">
+            <div class="category-item searchable" data-keywords="کامپیوتر computer">
+              <i class="fas fa-laptop"></i>
+              <span class="lang-fa">کامپیوتر</span>
+              <span class="lang-en">Computer</span>
+            </div>
+            <div class="category-item searchable" data-keywords="سخت افزار hardware">
+              <i class="fas fa-microchip"></i>
+              <span class="lang-fa">سخت‌افزار</span>
+              <span class="lang-en">Hardware</span>
+            </div>
+            <div class="category-item searchable" data-keywords="نرم افزار software">
+              <i class="fas fa-window-maximize"></i>
+              <span class="lang-fa">نرم‌افزار</span>
+              <span class="lang-en">Software</span>
+            </div>
+            <div class="category-item searchable" data-keywords="شبکه network">
+              <i class="fas fa-network-wired"></i>
+              <span class="lang-fa">شبکه</span>
+              <span class="lang-en">Network</span>
+            </div>
+            <div class="category-item searchable" data-keywords="هوش مصنوعی ai">
+              <i class="fas fa-brain"></i>
+              <span class="lang-fa">هوش مصنوعی</span>
+              <span class="lang-en">Artificial Intelligence</span>
+            </div>
+            <div class="category-item searchable" data-keywords="برنامه نویسی programming code">
+              <i class="fas fa-code"></i>
+              <span class="lang-fa">برنامه‌نویسی</span>
+              <span class="lang-en">Programming</span>
+            </div>
+            <div class="category-item searchable" data-keywords="تکنولوژی technology tech">
+              <i class="fas fa-satellite"></i>
+              <span class="lang-fa">تکنولوژی</span>
+              <span class="lang-en">Technology</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ARTICLES -->
+        <section class="view" id="view-articles" data-view-name="articles">
+          <div class="section-header">
+            <h2 class="lang-fa">مقالات</h2>
+            <div class="en-title">Articles</div>
+            <p class="lang-fa">مطالب نمونه با توضیحات بیشتر — به زودی مقالات کامل و قابل مطالعه اضافه می‌شود.</p>
+            <p class="lang-en">Sample articles with expanded descriptions — full readable articles coming soon.</p>
+          </div>
+          <div class="cards-grid" id="articlesGrid">
+            <article class="card article-card searchable" data-keywords="ram حافظه چیست">
+              <div class="article-img ram"><i class="fas fa-memory"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">سخت‌افزار</span>
+                  <span class="badge lang-en">Hardware</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">RAM چیست؟</h3>
+                <h3 class="lang-en">What is RAM?</h3>
+                <p class="lang-fa">آشنایی کامل با حافظه موقت، تفاوت آن با حافظه ذخیره‌سازی و اهمیت آن در سرعت و روان بودن سیستم. چرا مقدار و نوع RAM اهمیت دارد؟</p>
+                <p class="lang-en">A complete introduction to temporary memory, how it differs from storage, and why RAM amount and type matter for system speed and smoothness.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card article-card searchable" data-keywords="cpu پردازنده چیست">
+              <div class="article-img cpu"><i class="fas fa-microchip"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">سخت‌افزار</span>
+                  <span class="badge lang-en">Hardware</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">CPU چیست؟</h3>
+                <h3 class="lang-en">What is CPU?</h3>
+                <p class="lang-fa">پردازنده مرکزی چگونه کار می‌کند، هسته و رشته چه نقشی دارند و چه تأثیری روی اجرای برنامه‌ها و بازی‌ها می‌گذارند.</p>
+                <p class="lang-en">How the central processing unit works, what cores and threads do, and how they affect programs and games.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card article-card searchable" data-keywords="تفاوت ram storage حافظه">
+              <div class="article-img"><i class="fas fa-exchange-alt"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">سخت‌افزار</span>
+                  <span class="badge lang-en">Hardware</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">تفاوت RAM و Storage چیست؟</h3>
+                <h3 class="lang-en">RAM vs Storage — What's the Difference?</h3>
+                <p class="lang-fa">بسیاری این دو را اشتباه می‌گیرند. در این مطلب به زبان ساده تفاوت حافظه موقت و فضای ذخیره‌سازی را توضیح می‌دهیم و چرا هر دو مهم هستند.</p>
+                <p class="lang-en">Many people confuse the two. This article simply explains the difference between temporary memory and storage, and why both matter.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card article-card searchable" data-keywords="ssd چیست حافظه">
+              <div class="article-img ssd"><i class="fas fa-hdd"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">سخت‌افزار</span>
+                  <span class="badge lang-en">Hardware</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">SSD چیست؟</h3>
+                <h3 class="lang-en">What is SSD?</h3>
+                <p class="lang-fa">درایو حالت جامد چگونه کار می‌کند، چه مزایایی نسبت به هارد دیسک سنتی دارد و چه زمانی ارزش ارتقا دارد.</p>
+                <p class="lang-en">How solid-state drives work, their advantages over traditional hard disks, and when an upgrade is worth it.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card article-card searchable" data-keywords="هوش مصنوعی ai چیست">
+              <div class="article-img ai"><i class="fas fa-robot"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">هوش مصنوعی</span>
+                  <span class="badge lang-en">AI</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">هوش مصنوعی چیست؟</h3>
+                <h3 class="lang-en">What is Artificial Intelligence?</h3>
+                <p class="lang-fa">نگاهی ساده و کاربردی به مفهوم AI، تاریخچه کوتاه و تأثیر آن بر زندگی روزمره و آینده تکنولوژی.</p>
+                <p class="lang-en">A simple and practical look at the concept of AI, a short history, and its impact on everyday life and the future of technology.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+
+            <article class="card article-card searchable" data-keywords="کامپیوتر مناسب انتخاب">
+              <div class="article-img pc"><i class="fas fa-laptop"></i></div>
+              <div class="article-body">
+                <div class="article-meta">
+                  <span class="badge lang-fa">راهنما</span>
+                  <span class="badge lang-en">Guide</span>
+                  <span><i class="far fa-calendar"></i> 2025</span>
+                </div>
+                <h3 class="lang-fa">چگونه یک کامپیوتر مناسب انتخاب کنیم؟</h3>
+                <h3 class="lang-en">How to Choose the Right Computer?</h3>
+                <p class="lang-fa">نکات کلیدی برای خرید لپ‌تاپ یا سیستم دسکتاپ: بودجه، نیاز (کار، بازی، طراحی)، پردازنده، رم و حافظه.</p>
+                <p class="lang-en">Key tips for buying a laptop or desktop: budget, use case (work, gaming, design), processor, RAM and storage.</p>
+                <button class="btn btn-outline" style="padding:0.5rem 1.1rem;font-size:0.85rem;" disabled>
+                  <span class="lang-fa">مطالعه بیشتر</span>
+                  <span class="lang-en">Read more</span>
+                </button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="view" id="view-projects" data-view-name="projects">
+          <div class="section-header">
+            <h2 class="lang-fa">پروژه‌ها</h2>
+            <div class="en-title">Projects</div>
+            <p class="lang-fa">پروژه‌های شخصی — اطلاعات کامل به زودی تکمیل و منتشر می‌شود.</p>
+            <p class="lang-en">Personal projects — full details will be completed and published soon.</p>
+          </div>
+          <div class="cards-grid">
+            <div class="card project-card">
+              <span class="placeholder-badge">Coming Soon</span>
+              <div class="card-icon"><i class="fas fa-folder-open"></i></div>
+              <h3 class="lang-fa">پروژه ۱</h3>
+              <h3 class="lang-en">Project 1</h3>
+              <p class="lang-fa">[توضیح پروژه — به زودی جزئیات کامل اضافه می‌شود]</p>
+              <p class="lang-en">[Project description — full details coming soon]</p>
+            </div>
+            <div class="card project-card">
+              <span class="placeholder-badge">Coming Soon</span>
+              <div class="card-icon"><i class="fas fa-code"></i></div>
+              <h3 class="lang-fa">پروژه ۲</h3>
+              <h3 class="lang-en">Project 2</h3>
+              <p class="lang-fa">[توضیح پروژه — به زودی جزئیات کامل اضافه می‌شود]</p>
+              <p class="lang-en">[Project description — full details coming soon]</p>
+            </div>
+            <div class="card project-card">
+              <span class="placeholder-badge">Coming Soon</span>
+              <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+              <h3 class="lang-fa">پروژه ۳</h3>
+              <h3 class="lang-en">Project 3</h3>
+              <p class="lang-fa">[توضیح پروژه — به زودی جزئیات کامل اضافه می‌شود]</p>
+              <p class="lang-en">[Project description — full details coming soon]</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="view" id="view-contact" data-view-name="contact">
+          <div class="section-header">
+            <h2 class="lang-fa">تماس</h2>
+            <div class="en-title">Contact</div>
+            <p class="lang-fa">از طریق شماره تماس یا شبکه‌های اجتماعی با من در ارتباط باشید.</p>
+            <p class="lang-en">Get in touch via phone or social media.</p>
+          </div>
+
+          <a href="tel:+93748710718" class="phone-card">
+            <i class="fas fa-phone-alt"></i>
+            <div class="phone-info">
+              <h3 class="lang-fa">تماس تلفنی</h3>
+              <h3 class="lang-en">Phone Call</h3>
+              <p>+93 748 710 718</p>
+            </div>
+          </a>
+
+          <div class="contact-grid" style="margin-top:1.25rem;">
+            <a href="https://www.youtube.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-youtube"></i>
+              <h3>YouTube</h3>
+              <p>@engjamshidahmadzai</p>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=100064603517065&mibextid=ZbWKwL" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-facebook"></i>
+              <h3>Facebook</h3>
+              <p>Jamshid Ahmadzai</p>
+            </a>
+            <a href="https://www.instagram.com/engjamshidahmadzai" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-instagram"></i>
+              <h3>Instagram</h3>
+              <p>@engjamshidahmadzai</p>
+            </a>
+            <a href="https://www.tiktok.com/@engjamshidahmadzai" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-tiktok"></i>
+              <h3>TikTok</h3>
+              <p>@engjamshidahmadzai</p>
+            </a>
+            <a href="https://chat.whatsapp.com/HUeikxTryvtITAGNzcDOKO" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-whatsapp"></i>
+              <h3>WhatsApp</h3>
+              <p class="lang-fa">گروه واتساپ</p>
+              <p class="lang-en">WhatsApp Group</p>
+            </a>
+            <a href="https://t.me/engjamshidahmadzai" target="_blank" rel="noopener" class="contact-card">
+              <i class="fab fa-telegram"></i>
+              <h3>Telegram</h3>
+              <p>@engjamshidahmadzai</p>
+            </a>
+          </div>
+        </section>
+      </div>
+
+      <footer class="site-footer">
+        <p class="lang-fa">© ۱۴۰۴ جمشید احمدزی — تمام حقوق محفوظ است</p>
+        <p class="lang-en">© 2025 Jamshid Ahmadzai — All rights reserved</p>
+      </footer>
+    </main>
+  </div>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const body = document.body;
+      const views = document.querySelectorAll('.view');
+      const navItems = document.querySelectorAll('.nav-item[data-view]');
+      const searchInput = document.getElementById('searchInput');
+      const searchInfo = document.getElementById('searchInfo');
+      const noResults = document.getElementById('noResults');
+      const themeToggle = document.getElementById('themeToggle');
+      const themeToggle2 = document.getElementById('themeToggle2');
+      const langButtons = document.querySelectorAll('.lang-btn');
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileOverlay = document.getElementById('mobileOverlay');
+      const mobileClose = document.getElementById('mobileClose');
+      const backToTop = document.getElementById('backToTop');
+      const fontSizeBtns = document.querySelectorAll('.font-size-btns button');
+
+      let currentView = 'home';
+      let currentLang = localStorage.getItem('lang') || 'fa';
+      let currentTheme = localStorage.getItem('theme') || 'light';
+      let currentFontSize = localStorage.getItem('fontSize') || 'md';
+
+      function init() {
+        setLanguage(currentLang);
+        setTheme(currentTheme);
+        setFontSize(currentFontSize);
+        showView(getViewFromHash() || 'home');
+        bindEvents();
+        updateLangButtons();
+        updateThemeIcon();
+      }
+
+      function showView(viewName) {
+        if (!viewName) return;
+        currentView = viewName;
+
+        views.forEach(v => {
+          v.classList.toggle('active', v.dataset.viewName === viewName);
+        });
+
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.dataset.view === viewName);
+        });
+
+        if (history.replaceState) {
+          history.replaceState(null, null, '#' + viewName);
+        } else {
+          location.hash = viewName;
+        }
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        if (searchInput.value) {
+          searchInput.value = '';
+          performSearch('');
+        }
+
+        closeMobileMenu();
+      }
+
+      function getViewFromHash() {
+        const hash = location.hash.replace('#', '');
+        const valid = ['home', 'about', 'computer', 'ai', 'tutorials', 'articles', 'projects', 'contact'];
+        return valid.includes(hash) ? hash : null;
+      }
+
+      function setLanguage(lang) {
+        currentLang = lang;
+        body.dataset.lang = lang;
+        body.dir = lang === 'fa' ? 'rtl' : 'ltr';
+        body.lang = lang === 'fa' ? 'fa' : 'en';
+        localStorage.setItem('lang', lang);
+
+        const ph = searchInput.dataset['placeholder' + (lang === 'fa' ? 'Fa' : 'En')];
+        if (ph) searchInput.placeholder = ph;
+
+        updateLangButtons();
+        document.title = lang === 'fa'
+          ? 'جمشید احمدزی | Jamshid Ahmadzai'
+          : 'Jamshid Ahmadzai | جمشید احمدزی';
+      }
+
+      function updateLangButtons() {
+        langButtons.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.lang === currentLang);
+        });
+      }
+
+      function setTheme(theme) {
+        currentTheme = theme;
+        body.dataset.theme = theme;
+        localStorage.setItem('theme', theme);
+        updateThemeIcon();
+      }
+
+      function toggleTheme() {
+        setTheme(currentTheme === 'light' ? 'dark' : 'light');
+      }
+
+      function updateThemeIcon() {
+        const icons = document.querySelectorAll('#themeToggle i, #themeToggle2 i');
+        icons.forEach(icon => {
+          icon.className = currentTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        });
+      }
+
+      function setFontSize(size) {
+        currentFontSize = size;
+        body.classList.remove('font-sm', 'font-md', 'font-lg');
+        body.classList.add('font-' + size);
+        localStorage.setItem('fontSize', size);
+        fontSizeBtns.forEach(btn => {
+          btn.classList.toggle('active', btn.dataset.size === size);
+        });
+      }
+
+      function performSearch(query) {
+        query = query.trim().toLowerCase();
+        const searchable = document.querySelectorAll('.searchable');
+        let visibleCount = 0;
+
+        if (!query) {
+          searchable.forEach(el => el.style.display = '');
+          searchInfo.classList.remove('visible');
+          noResults.classList.remove('visible');
+          return;
+        }
+
+        searchable.forEach(el => {
+          const keywords = (el.dataset.keywords || '').toLowerCase();
+          const text = el.textContent.toLowerCase();
+          const match = keywords.includes(query) || text.includes(query);
+          el.style.display = match ? '' : 'none';
+          if (match) visibleCount++;
+        });
+
+        if (visibleCount === 0) {
+          searchInfo.classList.remove('visible');
+          noResults.classList.add('visible');
+        } else {
+          noResults.classList.remove('visible');
+          searchInfo.classList.add('visible');
+          searchInfo.innerHTML = currentLang === 'fa'
+            ? `نتایج جستجو برای «${query}»: ${visibleCount} مورد`
+            : `Search results for "${query}": ${visibleCount} items`;
+        }
+      }
+
+      function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function handleScroll() {
+        if (window.scrollY > 400) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+
+      function bindEvents() {
+        document.addEventListener('click', (e) => {
+          const target = e.target.closest('[data-view]');
+          if (target && target.dataset.view) {
+            e.preventDefault();
+            showView(target.dataset.view);
+          }
+        });
+
+        window.addEventListener('hashchange', () => {
+          const view = getViewFromHash();
+          if (view) showView(view);
+        });
+
+        if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
+        if (themeToggle2) themeToggle2.addEventListener('click', toggleTheme);
+
+        langButtons.forEach(btn => {
+          btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        fontSizeBtns.forEach(btn => {
+          btn.addEventListener('click', () => setFontSize(btn.dataset.size));
+        });
+
+        let searchTimeout;
+        searchInput.addEventListener('input', () => {
+          clearTimeout(searchTimeout);
+          searchTimeout = setTimeout(() => performSearch(searchInput.value), 220);
+        });
+
+        hamburgerBtn.addEventListener('click', openMobileMenu);
+        mobileClose.addEventListener('click', closeMobileMenu);
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        backToTop.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') closeMobileMenu();
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
